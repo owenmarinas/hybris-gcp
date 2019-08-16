@@ -12,6 +12,9 @@ PROJECT_ZONE="us-east1-d"
 # Used as a suffix for select service names.
 ENV_TYPE="dev"
 
+# Compute Cluster for kube
+GCE_CLUSTER="hybris-cluster-1"
+
 # Used as a prefix for select service names.
 ORGANIZATION="ras-hybris"
 
