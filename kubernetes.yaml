@@ -1,0 +1,530 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: hsql
+    name: hsql
+  spec:
+    clusterIP: None
+    ports:
+    - name: headless
+      port: 55555
+      targetPort: 0
+    selector:
+      io.kompose.service: hsql
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: load-balancer
+    name: load-balancer
+  spec:
+    ports:
+    - name: "80"
+      port: 80
+      targetPort: 80
+    - name: "443"
+      port: 443
+      targetPort: 443
+    selector:
+      io.kompose.service: load-balancer
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-admin-init
+    name: platform-admin-init
+  spec:
+    clusterIP: None
+    ports:
+    - name: headless
+      port: 55555
+      targetPort: 0
+    selector:
+      io.kompose.service: platform-admin-init
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-background-processing
+    name: platform-background-processing
+  spec:
+    clusterIP: None
+    ports:
+    - name: headless
+      port: 55555
+      targetPort: 0
+    selector:
+      io.kompose.service: platform-background-processing
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac1
+    name: platformhac1
+  spec:
+    clusterIP: None
+    ports:
+    - name: headless
+      port: 55555
+      targetPort: 0
+    selector:
+      io.kompose.service: platformhac1
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac2
+    name: platformhac2
+  spec:
+    clusterIP: None
+    ports:
+    - name: headless
+      port: 55555
+      targetPort: 0
+    selector:
+      io.kompose.service: platformhac2
+  status:
+    loadBalancer: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: hsql
+    name: hsql
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: hsql
+      spec:
+        containers:
+        - image: simple_deployment_hsql
+          name: hsql
+          resources: {}
+          volumeMounts:
+          - mountPath: /opt/hsqldb/data
+            name: hsql-claim0
+        restartPolicy: Always
+        volumes:
+        - name: hsql-claim0
+          persistentVolumeClaim:
+            claimName: hsql-claim0
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: hsql-claim0
+    name: hsql-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: load-balancer
+    name: load-balancer
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: load-balancer
+      spec:
+        containers:
+        - env:
+          - name: NODE_IP_platformhac1
+            value: ajp://platformhac1:8009
+          - name: NODE_IP_platformhac2
+            value: ajp://platformhac2:8009
+          image: simple_deployment_load_balancer
+          name: load-balancer
+          ports:
+          - containerPort: 80
+          - containerPort: 443
+          resources: {}
+          volumeMounts:
+          - mountPath: /usr/local/apache2/conf/ssl
+            name: load-balancer-claim0
+        restartPolicy: Always
+        volumes:
+        - name: load-balancer-claim0
+          persistentVolumeClaim:
+            claimName: load-balancer-claim0
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: load-balancer-claim0
+    name: load-balancer-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-admin-init
+    name: platform-admin-init
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: platform-admin-init
+      spec:
+        containers:
+        - args:
+          - admin
+          - initialize
+          env:
+          - name: WAIT_FOR
+            value: hsql:9090
+          image: simple_deployment_platform
+          name: platform-admin-init
+          resources: {}
+          volumeMounts:
+          - mountPath: /etc/ssl/certs/hybris
+            name: platform-admin-init-claim0
+          - mountPath: /opt/hybris/data/media
+            name: platform-admin-init-claim1
+        restartPolicy: Always
+        volumes:
+        - name: platform-admin-init-claim0
+          persistentVolumeClaim:
+            claimName: platform-admin-init-claim0
+        - name: platform-admin-init-claim1
+          persistentVolumeClaim:
+            claimName: platform-admin-init-claim1
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-admin-init-claim0
+    name: platform-admin-init-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-admin-init-claim1
+    name: platform-admin-init-claim1
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-background-processing
+    name: platform-background-processing
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: platform-background-processing
+      spec:
+        containers:
+        - args:
+          - backgroundProcessing
+          env:
+          - name: WAIT_FOR
+            value: hsql:9090
+          image: simple_deployment_platform
+          name: platform-background-processing
+          resources: {}
+          volumeMounts:
+          - mountPath: /etc/ssl/certs/hybris
+            name: platform-background-processing-claim0
+          - mountPath: /opt/hybris/data/media
+            name: platform-background-processing-claim1
+        restartPolicy: Always
+        volumes:
+        - name: platform-background-processing-claim0
+          persistentVolumeClaim:
+            claimName: platform-background-processing-claim0
+        - name: platform-background-processing-claim1
+          persistentVolumeClaim:
+            claimName: platform-background-processing-claim1
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-background-processing-claim0
+    name: platform-background-processing-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platform-background-processing-claim1
+    name: platform-background-processing-claim1
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac1
+    name: platformhac1
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: platformhac1
+      spec:
+        containers:
+        - args:
+          - hac
+          env:
+          - name: JVM_ROUTE
+            value: platformhac1
+          - name: WAIT_FOR
+            value: hsql:9090
+          image: simple_deployment_platform
+          name: platformhac1
+          resources: {}
+          volumeMounts:
+          - mountPath: /etc/ssl/certs/hybris
+            name: platformhac1-claim0
+          - mountPath: /opt/hybris/data/media
+            name: platformhac1-claim1
+        restartPolicy: Always
+        volumes:
+        - name: platformhac1-claim0
+          persistentVolumeClaim:
+            claimName: platformhac1-claim0
+        - name: platformhac1-claim1
+          persistentVolumeClaim:
+            claimName: platformhac1-claim1
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac1-claim0
+    name: platformhac1-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac1-claim1
+    name: platformhac1-claim1
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f /opt/installer/recipes/platform_only_dockerized/docker-compose.yaml
+        -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac2
+    name: platformhac2
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: platformhac2
+      spec:
+        containers:
+        - args:
+          - hac
+          env:
+          - name: JVM_ROUTE
+            value: platformhac2
+          - name: WAIT_FOR
+            value: hsql:9090
+          image: simple_deployment_platform
+          name: platformhac2
+          resources: {}
+          volumeMounts:
+          - mountPath: /etc/ssl/certs/hybris
+            name: platformhac2-claim0
+          - mountPath: /opt/hybris/data/media
+            name: platformhac2-claim1
+        restartPolicy: Always
+        volumes:
+        - name: platformhac2-claim0
+          persistentVolumeClaim:
+            claimName: platformhac2-claim0
+        - name: platformhac2-claim1
+          persistentVolumeClaim:
+            claimName: platformhac2-claim1
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac2-claim0
+    name: platformhac2-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: platformhac2-claim1
+    name: platformhac2-claim1
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+kind: List
+metadata: {}
+
