@@ -11,10 +11,11 @@
 set -e
 set -x
 gcloud services enable storage-component.googleapis.com
+gcloud services enable containerregistry.googleapis.com
 # Enable Stackdriver
 gcloud services enable stackdriver.googleapis.com
 # Enable Cloud SQL
-gcloud services enable sql-component.googleapis.com
+#gcloud services enable sql-component.googleapis.com
 # Enable Datastore
 gcloud services enable datastore.googleapis.com
 
