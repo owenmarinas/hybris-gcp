@@ -342,7 +342,7 @@ items:
           io.kompose.service: hsql
       spec:
         containers:
-          - image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
+           image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
           name: hsql
           resources: {}
           volumeMounts:
