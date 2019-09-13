@@ -342,7 +342,7 @@ items:
           io.kompose.service: hsql
       spec:
         containers:
-        - image: b2cacc_deployment_hsql
+          - image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
           name: hsql
           resources: {}
           volumeMounts:
@@ -394,7 +394,7 @@ items:
             value: ajp://platformbackoffice1:8009
           - name: NODE_IP_platformbackoffice2
             value: ajp://platformbackoffice2:8009
-          image: b2cacc_deployment_load_balancer
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
           name: load-balancer-backend
           ports:
           - containerPort: 80
@@ -449,7 +449,7 @@ items:
             value: ajp://platformacceleratorstorefront1:8009
           - name: NODE_IP_platformacceleratorstorefront2
             value: ajp://platformacceleratorstorefront2:8009
-          image: b2cacc_deployment_load_balancer
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
           name: load-balancer-frontend
           ports:
           - containerPort: 80
@@ -502,7 +502,7 @@ items:
         - args:
           - admin
           - initialize
-          image: b2cacc_deployment_platform
+        image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platform-admin-init
           resources: {}
           volumeMounts:
@@ -570,7 +570,7 @@ items:
         containers:
         - args:
           - backgroundProcessing
-          image: b2cacc_deployment_platform
+        image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platform-background-processing
           resources: {}
           volumeMounts:
@@ -638,7 +638,7 @@ items:
         containers:
         - args:
           - hac
-          image: b2cacc_deployment_platform
+        image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platform-hac
           ports:
           - containerPort: 8088
@@ -711,7 +711,7 @@ items:
           env:
           - name: JVM_ROUTE
             value: platformacceleratorstorefront1
-          image: b2cacc_deployment_platform
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platformacceleratorstorefront1
           resources: {}
           volumeMounts:
@@ -782,7 +782,7 @@ items:
           env:
           - name: JVM_ROUTE
             value: platformacceleratorstorefront2
-          image: b2cacc_deployment_platform
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platformacceleratorstorefront2
           resources: {}
           volumeMounts:
@@ -853,7 +853,7 @@ items:
           env:
           - name: JVM_ROUTE
             value: platformbackoffice1
-          image: b2cacc_deployment_platform
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platformbackoffice1
           resources: {}
           volumeMounts:
@@ -924,7 +924,7 @@ items:
           env:
           - name: JVM_ROUTE
             value: platformbackoffice2
-          image: b2cacc_deployment_platform
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
           name: platformbackoffice2
           resources: {}
           volumeMounts:
@@ -992,7 +992,7 @@ items:
         containers:
         - args:
           - standard
-          image: b2cacc_deployment_solr
+        image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
           name: solr
           resources: {}
           volumeMounts:
@@ -1048,7 +1048,7 @@ items:
             value: solrc1
           - name: ZK_HOSTS
             value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-          image: b2cacc_deployment_solr
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
           name: solrc1
           ports:
           - containerPort: 8983
@@ -1106,7 +1106,7 @@ items:
             value: solrc2
           - name: ZK_HOSTS
             value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-          image: b2cacc_deployment_solr
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
           name: solrc2
           ports:
           - containerPort: 8983
@@ -1157,7 +1157,7 @@ items:
         - env:
           - name: MYID
             value: "1"
-          image: b2cacc_deployment_zookeeper
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
           name: zookeeper1
           resources: {}
         restartPolicy: Always
@@ -1185,7 +1185,7 @@ items:
         - env:
           - name: MYID
             value: "2"
-          image: b2cacc_deployment_zookeeper
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
           name: zookeeper2
           resources: {}
         restartPolicy: Always
@@ -1213,7 +1213,7 @@ items:
         - env:
           - name: MYID
             value: "3"
-          image: b2cacc_deployment_zookeeper
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
           name: zookeeper3
           resources: {}
         restartPolicy: Always
