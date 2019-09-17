@@ -1,2 +1,29 @@
-apiVersion: v1
-items:
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    labels:
+      io.kompose.service: hsql
+    name: hsql
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: hsql
+      spec:
+        containers:
+        - image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
+          name: pod-hsql
+          resources: {}
+          volumeMounts:
+          - mountPath: /opt/hsqldb/data
+            name: hsql-claim0
+        restartPolicy: Always
+        volumes:
+        - name: hsql-claim0
+          persistentVolumeClaim:
+            claimName: hsql-claim0
+  status: {}
