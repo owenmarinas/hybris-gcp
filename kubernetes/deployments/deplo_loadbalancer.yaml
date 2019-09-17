@@ -1,0 +1,87 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: load-balancer-backend
+    name: load-balancer-backend
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: load-balancer-backend
+      spec:
+        containers:
+        - env:
+          - name: NODE_IP_platformbackoffice1
+            value: ajp://platformbackoffice1:8009
+          - name: NODE_IP_platformbackoffice2
+            value: ajp://platformbackoffice2:8009
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
+          name: load-balancer-backend
+          ports:
+          - containerPort: 80
+          - containerPort: 443
+          resources: {}
+          volumeMounts:
+          - mountPath: /usr/local/apache2/conf/ssl
+            name: load-balancer-backend-claim0
+        restartPolicy: Always
+        volumes:
+        - name: load-balancer-backend-claim0
+          persistentVolumeClaim:
+            claimName: load-balancer-backend-claim0
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: load-balancer-frontend
+    name: load-balancer-frontend
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: load-balancer-frontend
+      spec:
+        containers:
+        - env:
+          - name: NODE_IP_platformacceleratorstorefront1
+            value: ajp://platformacceleratorstorefront1:8009
+          - name: NODE_IP_platformacceleratorstorefront2
+            value: ajp://platformacceleratorstorefront2:8009
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
+          name: load-balancer-frontend
+          ports:
+          - containerPort: 80
+          - containerPort: 443
+          resources: {}
+          volumeMounts:
+          - mountPath: /usr/local/apache2/conf/ssl
+            name: load-balancer-frontend-claim0
+        restartPolicy: Always
+        volumes:
+        - name: load-balancer-frontend-claim0
+          persistentVolumeClaim:
+            claimName: load-balancer-frontend-claim0
+  status: {}
+  
+kind: List
+metadata: {}
