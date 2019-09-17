@@ -18,7 +18,7 @@ items:
       spec:
         containers:
         - image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
-          name: pod-hsql
+          name: hsql
           resources: {}
           volumeMounts:
           - mountPath: /opt/hsqldb/data

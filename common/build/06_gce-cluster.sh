@@ -11,6 +11,6 @@ gcloud beta container clusters create $GCE_CLUSTER  \
   --project $PROJECT_NAME  --zone $PROJECT_ZONE  --no-enable-basic-auth \
   --cluster-version "1.12.8-gke.10" --machine-type "n1-standard-1" --image-type "COS" --disk-type "pd-standard" --disk-size "100" \
   --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
-  --num-nodes "3" --enable-cloud-logging --enable-stackdriver-kubernetes --enable-ip-alias \
+  --num-nodes "3" --enable-stackdriver-kubernetes --enable-ip-alias \
   --network $SERVICES_NETWORK  --subnetwork $SERVICES_SUBNET --default-max-pods-per-node "110"  \
   --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autoupgrade --enable-autorepair --metadata disable-legacy-endpoints=true
