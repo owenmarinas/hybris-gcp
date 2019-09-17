@@ -8,16 +8,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: hsql
-     name: SVC_hsql
+      io.kompose.service: SVC_hsql
+    name: SVC_hsql
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: hsql
+      io.kompose.service: SVC_hsql
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -28,18 +28,18 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: load-balancer-backend
-     name: SVC_load-balancer-backend
+      io.kompose.service: SVC_load-balancer-backend
+    name: SVC_load-balancer-backend
   spec:
     ports:
-    -  name: SVC_"81"
+    - name: SVC_"81"
       port: 81
       targetPort: 80
-    -  name: SVC_"444"
+    - name: SVC_"444"
       port: 444
       targetPort: 443
     selector:
-      io.kompose.service: load-balancer-backend
+      io.kompose.service: SVC_load-balancer-backend
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -50,18 +50,18 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: load-balancer-frontend
-     name: SVC_load-balancer-frontend
+      io.kompose.service: SVC_load-balancer-frontend
+    name: SVC_load-balancer-frontend
   spec:
     ports:
-    -  name: SVC_"80"
+    - name: SVC_"80"
       port: 80
       targetPort: 80
-    -  name: SVC_"443"
+    - name: SVC_"443"
       port: 443
       targetPort: 443
     selector:
-      io.kompose.service: load-balancer-frontend
+      io.kompose.service: SVC_load-balancer-frontend
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -72,16 +72,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platform-admin-init
-     name: SVC_platform-admin-init
+      io.kompose.service: SVC_platform-admin-init
+    name: SVC_platform-admin-init
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: platform-admin-init
+      io.kompose.service: SVC_platform-admin-init
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -92,16 +92,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platform-background-processing
-     name: SVC_platform-background-processing
+      io.kompose.service: SVC_platform-background-processing
+    name: SVC_platform-background-processing
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: platform-background-processing
+      io.kompose.service: SVC_platform-background-processing
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -112,15 +112,15 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platform-hac
-     name: SVC_platform-hac
+      io.kompose.service: SVC_platform-hac
+    name: SVC_platform-hac
   spec:
     ports:
-    -  name: SVC_"9111"
+    - name: SVC_"9111"
       port: 9111
       targetPort: 8088
     selector:
-      io.kompose.service: platform-hac
+      io.kompose.service: SVC_platform-hac
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -131,16 +131,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platformacceleratorstorefront1
-     name: SVC_platformacceleratorstorefront1
+      io.kompose.service: SVC_platformacceleratorstorefront1
+    name: SVC_platformacceleratorstorefront1
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: platformacceleratorstorefront1
+      io.kompose.service: SVC_platformacceleratorstorefront1
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -151,16 +151,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platformacceleratorstorefront2
-     name: SVC_platformacceleratorstorefront2
+      io.kompose.service: SVC_platformacceleratorstorefront2
+    name: SVC_platformacceleratorstorefront2
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: platformacceleratorstorefront2
+      io.kompose.service: SVC_platformacceleratorstorefront2
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -171,16 +171,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platformbackoffice1
-     name: SVC_platformbackoffice1
+      io.kompose.service: SVC_platformbackoffice1
+    name: SVC_platformbackoffice1
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: platformbackoffice1
+      io.kompose.service: SVC_platformbackoffice1
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -191,16 +191,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: platformbackoffice2
-     name: SVC_platformbackoffice2
+      io.kompose.service: SVC_platformbackoffice2
+    name: SVC_platformbackoffice2
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: platformbackoffice2
+      io.kompose.service: SVC_platformbackoffice2
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -211,16 +211,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: solr
-     name: SVC_solr
+      io.kompose.service: SVC_solr
+    name: SVC_solr
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: solr
+      io.kompose.service: SVC_solr
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -231,15 +231,15 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: solrc1
-     name: SVC_solrc1
+      io.kompose.service: SVC_solrc1
+    name: SVC_solrc1
   spec:
     ports:
-    -  name: SVC_"8984"
+    - name: SVC_"8984"
       port: 8984
       targetPort: 8983
     selector:
-      io.kompose.service: solrc1
+      io.kompose.service: SVC_solrc1
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -250,15 +250,15 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: solrc2
-     name: SVC_solrc2
+      io.kompose.service: SVC_solrc2
+    name: SVC_solrc2
   spec:
     ports:
-    -  name: SVC_"8985"
+    - name: SVC_"8985"
       port: 8985
       targetPort: 8983
     selector:
-      io.kompose.service: solrc2
+      io.kompose.service: SVC_solrc2
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -269,16 +269,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: zookeeper1
-     name: SVC_zookeeper1
+      io.kompose.service: SVC_zookeeper1
+    name: SVC_zookeeper1
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: zookeeper1
+      io.kompose.service: SVC_zookeeper1
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -289,16 +289,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: zookeeper2
-     name: SVC_zookeeper2
+      io.kompose.service: SVC_zookeeper2
+    name: SVC_zookeeper2
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: zookeeper2
+      io.kompose.service: SVC_zookeeper2
   status:
     loadBalancer: {}
 - apiVersion: v1
@@ -309,16 +309,16 @@ items:
       kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
-      io.kompose.service: zookeeper3
-     name: SVC_zookeeper3
+      io.kompose.service: SVC_zookeeper3
+    name: SVC_zookeeper3
   spec:
     clusterIP: None
     ports:
-    -  name: SVC_headless
+    - name: SVC_headless
       port: 55555
       targetPort: 0
     selector:
-      io.kompose.service: zookeeper3
+      io.kompose.service: SVC_zookeeper3
   status:
     loadBalancer: {}
 kind: List
