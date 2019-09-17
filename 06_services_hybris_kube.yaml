@@ -13,7 +13,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -32,10 +32,10 @@ items:
     name: svc-load-balancer-backend
   spec:
     ports:
-    - name: svc-"81"
+    - name: "81"
       port: 81
       targetPort: 80
-    - name: svc-"444"
+    - name: "444"
       port: 444
       targetPort: 443
     selector:
@@ -54,10 +54,10 @@ items:
     name: svc-load-balancer-frontend
   spec:
     ports:
-    - name: svc-"80"
+    - name: "80"
       port: 80
       targetPort: 80
-    - name: svc-"443"
+    - name: "443"
       port: 443
       targetPort: 443
     selector:
@@ -77,7 +77,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -97,7 +97,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -116,7 +116,7 @@ items:
     name: svc-platform-hac
   spec:
     ports:
-    - name: svc-"9111"
+    - name: "9111"
       port: 9111
       targetPort: 8088
     selector:
@@ -136,7 +136,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -156,7 +156,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -176,7 +176,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -196,7 +196,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -216,7 +216,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -235,7 +235,7 @@ items:
     name: svc-solrc1
   spec:
     ports:
-    - name: svc-"8984"
+    - name: "8984"
       port: 8984
       targetPort: 8983
     selector:
@@ -254,7 +254,7 @@ items:
     name: svc-solrc2
   spec:
     ports:
-    - name: svc-"8985"
+    - name: "8985"
       port: 8985
       targetPort: 8983
     selector:
@@ -274,7 +274,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -294,7 +294,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
@@ -314,7 +314,7 @@ items:
   spec:
     clusterIP: None
     ports:
-    - name: svc-headless
+    - name: headless
       port: 55555
       targetPort: 0
     selector:
