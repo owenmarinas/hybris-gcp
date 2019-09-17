@@ -18,7 +18,7 @@ items:
       spec:
         containers:
         - image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
-          name: hsql
+          name: pod-hsql
           resources: {}
           volumeMounts:
           - mountPath: /opt/hsqldb/data
@@ -52,7 +52,7 @@ items:
           - name: NODE_IP_platformbackoffice2
             value: ajp://platformbackoffice2:8009
           image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
-          name: load-balancer-backend
+          name: pod-load-balancer-backend
           ports:
           - containerPort: 80
           - containerPort: 443
@@ -89,7 +89,7 @@ items:
           - name: NODE_IP_platformacceleratorstorefront2
             value: ajp://platformacceleratorstorefront2:8009
           image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
-          name: load-balancer-frontend
+          name: pod-load-balancer-frontend
           ports:
           - containerPort: 80
           - containerPort: 443
@@ -124,7 +124,7 @@ items:
           - admin
           - initialize
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platform-admin-init
+          name: pod-platform-admin-init
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -160,7 +160,7 @@ items:
         - args:
           - backgroundProcessing
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platform-background-processing
+          name: pod-platform-background-processing
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -196,7 +196,7 @@ items:
         - args:
           - hac
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platform-hac
+          name: pod-platform-hac
           ports:
           - containerPort: 8088
           resources: {}
@@ -237,7 +237,7 @@ items:
           - name: JVM_ROUTE
             value: platformacceleratorstorefront1
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platformacceleratorstorefront1
+          name: pod-platformacceleratorstorefront1
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -276,7 +276,7 @@ items:
           - name: JVM_ROUTE
             value: platformacceleratorstorefront2
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platformacceleratorstorefront2
+          name: pod-platformacceleratorstorefront2
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -315,7 +315,7 @@ items:
           - name: JVM_ROUTE
             value: platformbackoffice1
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platformbackoffice1
+          name: pod-platformbackoffice1
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -354,7 +354,7 @@ items:
           - name: JVM_ROUTE
             value: platformbackoffice2
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: platformbackoffice2
+          name: pod-platformbackoffice2
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -390,7 +390,7 @@ items:
         - args:
           - standard
           image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
-          name: solr
+          name: pod-solr
           resources: {}
           volumeMounts:
           - mountPath: /opt/solr/server/solr/cores
@@ -428,7 +428,7 @@ items:
           - name: ZK_HOSTS
             value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
           image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
-          name: solrc1
+          name: pod-solrc1
           ports:
           - containerPort: 8983
           resources: {}
@@ -468,7 +468,7 @@ items:
           - name: ZK_HOSTS
             value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
           image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
-          name: solrc2
+          name: pod-solrc2
           ports:
           - containerPort: 8983
           resources: {}
@@ -501,7 +501,7 @@ items:
           - name: MYID
             value: "1"
           image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
-          name: zookeeper1
+          name: pod-zookeeper1
           resources: {}
         restartPolicy: Always
   status: {}
@@ -525,7 +525,7 @@ items:
           - name: MYID
             value: "2"
           image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
-          name: zookeeper2
+          name: pod-zookeeper2
           resources: {}
         restartPolicy: Always
   status: {}
@@ -549,7 +549,7 @@ items:
           - name: MYID
             value: "3"
           image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
-          name: zookeeper3
+          name: pod-zookeeper3
           resources: {}
         restartPolicy: Always
   status: {}
