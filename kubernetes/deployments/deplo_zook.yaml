@@ -1,0 +1,88 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: zookeeper1
+    name: zookeeper1
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: zookeeper1
+      spec:
+        containers:
+        - env:
+          - name: MYID
+            value: "1"
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
+          name: zookeeper1
+          resources: {}
+        restartPolicy: Always
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: zookeeper2
+    name: zookeeper2
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: zookeeper2
+      spec:
+        containers:
+        - env:
+          - name: MYID
+            value: "2"
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
+          name: zookeeper2
+          resources: {}
+        restartPolicy: Always
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: zookeeper3
+    name: zookeeper3
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: zookeeper3
+      spec:
+        containers:
+        - env:
+          - name: MYID
+            value: "3"
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
+          name: zookeeper3
+          resources: {}
+        restartPolicy: Always
+  status: {}
+kind: List
+metadata: {}
