@@ -3,7 +3,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platform-admin-init-claim0
     name: platform-admin-init-claim0
@@ -17,7 +16,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platform-admin-init-claim1
     name: platform-admin-init-claim1
@@ -31,7 +29,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platform-background-processing-claim0
     name: platform-background-processing-claim0
@@ -45,7 +42,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platform-background-processing-claim1
     name: platform-background-processing-claim1
@@ -59,7 +55,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platform-hac-claim0
     name: platform-hac-claim0
@@ -73,7 +68,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platform-hac-claim1
     name: platform-hac-claim1
@@ -83,11 +77,10 @@ items:
     resources:
       requests:
         storage: 100Mi
-  status: {} 
+  status: {}
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront1-claim0
     name: platformacceleratorstorefront1-claim0
@@ -101,7 +94,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront1-claim1
     name: platformacceleratorstorefront1-claim1
@@ -115,7 +107,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront2-claim0
     name: platformacceleratorstorefront2-claim0
@@ -129,7 +120,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront2-claim1
     name: platformacceleratorstorefront2-claim1
@@ -143,7 +133,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice1-claim0
     name: platformbackoffice1-claim0
@@ -157,7 +146,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice1-claim1
     name: platformbackoffice1-claim1
@@ -171,7 +159,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice2-claim0
     name: platformbackoffice2-claim0
@@ -185,7 +172,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice2-claim1
     name: platformbackoffice2-claim1
@@ -199,7 +185,6 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: solr-claim0
     name: solr-claim0
@@ -209,11 +194,10 @@ items:
     resources:
       requests:
         storage: 100Mi
-  status: {}  
+  status: {}
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    creationTimestamp: null
     labels:
       io.kompose.service: solrc1-claim0
     name: solrc1-claim0
@@ -224,3 +208,6 @@ items:
       requests:
         storage: 100Mi
   status: {}
+kind: List
+metadata: {}
+
