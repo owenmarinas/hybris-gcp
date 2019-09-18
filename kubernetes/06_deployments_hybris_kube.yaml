@@ -1,5 +1,6 @@
 apiVersion: v1
 items:
+  # HSQL
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
@@ -18,7 +19,7 @@ items:
       spec:
         containers:
         - image: gcr.io/gke-hybris-1/b2cacc_deployment_hsql
-          name: pod-hsql
+          name: hsql
           resources: {}
           volumeMounts:
           - mountPath: /opt/hsqldb/data
@@ -29,9 +30,223 @@ items:
           persistentVolumeClaim:
             claimName: hsql-claim0
   status: {}
+
+# ZOOKEPER
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: zookeeper1
+    name: zookeeper1
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: zookeeper1
+      spec:
+        containers:
+        - env:
+          - name: MYID
+            value: "1"
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
+          name: zookeeper1
+          resources: {}
+        restartPolicy: Always
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: zookeeper2
+    name: zookeeper2
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: zookeeper2
+      spec:
+        containers:
+        - env:
+          - name: MYID
+            value: "2"
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
+          name: zookeeper2
+          resources: {}
+        restartPolicy: Always
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: zookeeper3
+    name: zookeeper3
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: zookeeper3
+      spec:
+        containers:
+        - env:
+          - name: MYID
+            value: "3"
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
+          name: zookeeper3
+          resources: {}
+        restartPolicy: Always
+  status: {}
+
+#SOLR
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+    creationTimestamp: null
+    labels:
+      io.kompose.service: solr
+    name: solr
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: solr
+      spec:
+        containers:
+        - args:
+          - standard
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
+          name: solr
+          resources: {}
+          volumeMounts:
+          - mountPath: /opt/solr/server/solr/cores
+            name: solr-claim0
+        restartPolicy: Always
+        volumes:
+        - name: solr-claim0
+          persistentVolumeClaim:
+            claimName: solr-claim0
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+    creationTimestamp: null
+    labels:
+      io.kompose.service: solrc1
+    name: solrc1
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: solrc1
+      spec:
+        containers:
+        - args:
+          - cloud
+          env:
+          - name: NODE_DIR
+            value: /opt/solr/server
+          - name: SOLR_HOST
+            value: solrc1
+          - name: ZK_HOSTS
+            value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
+          name: solrc1
+          ports:
+          - containerPort: 8983
+          resources: {}
+          volumeMounts:
+          - mountPath: /opt/solr/server/cores
+            name: solrc1-claim0
+        restartPolicy: Always
+        volumes:
+        - name: solrc1-claim0
+          persistentVolumeClaim:
+            claimName: solrc1-claim0
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+    creationTimestamp: null
+    labels:
+      io.kompose.service: solrc2
+    name: solrc2
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: solrc2
+      spec:
+        containers:
+        - args:
+          - cloud
+          env:
+          - name: NODE_DIR
+            value: /opt/solr/server
+          - name: SOLR_HOST
+            value: solrc2
+          - name: ZK_HOSTS
+            value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
+          name: solrc2
+          ports:
+          - containerPort: 8983
+          resources: {}
+          volumeMounts:
+          - mountPath: /opt/solr/server/cores
+            name: solrc2-claim0
+        restartPolicy: Always
+        volumes:
+        - name: solrc2-claim0
+          persistentVolumeClaim:
+            claimName: solrc2-claim0
+  status: {}
+
+# LOAD BALANCER
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-backend
     name: load-balancer-backend
@@ -69,6 +284,10 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-frontend
     name: load-balancer-frontend
@@ -103,9 +322,14 @@ items:
           persistentVolumeClaim:
             claimName: load-balancer-frontend-claim0
   status: {}
+
+# HYBRIS
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+    creationTimestamp: null
     labels:
       io.kompose.service: platform-admin-init
     name: platform-admin-init
@@ -124,7 +348,7 @@ items:
           - admin
           - initialize
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platform-admin-init
+          name: platform-admin-init
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -143,6 +367,9 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+    creationTimestamp: null
     labels:
       io.kompose.service: platform-background-processing
     name: platform-background-processing
@@ -160,7 +387,7 @@ items:
         - args:
           - backgroundProcessing
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platform-background-processing
+          name: platform-background-processing
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -179,6 +406,10 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: platform-hac
     name: platform-hac
@@ -196,7 +427,7 @@ items:
         - args:
           - hac
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platform-hac
+          name: platform-hac
           ports:
           - containerPort: 8088
           resources: {}
@@ -217,6 +448,10 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront1
     name: platformacceleratorstorefront1
@@ -237,7 +472,7 @@ items:
           - name: JVM_ROUTE
             value: platformacceleratorstorefront1
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platformacceleratorstorefront1
+          name: platformacceleratorstorefront1
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -256,6 +491,10 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront2
     name: platformacceleratorstorefront2
@@ -276,7 +515,7 @@ items:
           - name: JVM_ROUTE
             value: platformacceleratorstorefront2
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platformacceleratorstorefront2
+          name: platformacceleratorstorefront2
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -295,6 +534,10 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice1
     name: platformbackoffice1
@@ -315,7 +558,7 @@ items:
           - name: JVM_ROUTE
             value: platformbackoffice1
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platformbackoffice1
+          name: platformbackoffice1
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -334,6 +577,10 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
+      kompose.version: 1.7.0 (HEAD)
+    creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice2
     name: platformbackoffice2
@@ -354,7 +601,7 @@ items:
           - name: JVM_ROUTE
             value: platformbackoffice2
           image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
-          name: pod-platformbackoffice2
+          name: platformbackoffice2
           resources: {}
           volumeMounts:
           - mountPath: /etc/ssl/certs/hybris
@@ -370,188 +617,6 @@ items:
           persistentVolumeClaim:
             claimName: platformbackoffice2-claim1
   status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    labels:
-      io.kompose.service: solr
-    name: solr
-  spec:
-    replicas: 1
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        creationTimestamp: null
-        labels:
-          io.kompose.service: solr
-      spec:
-        containers:
-        - args:
-          - standard
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
-          name: pod-solr
-          resources: {}
-          volumeMounts:
-          - mountPath: /opt/solr/server/solr/cores
-            name: solr-claim0
-        restartPolicy: Always
-        volumes:
-        - name: solr-claim0
-          persistentVolumeClaim:
-            claimName: solr-claim0
-  status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-  labels:
-      io.kompose.service: solrc1
-  name: solrc1
-  spec:
-    replicas: 1
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        creationTimestamp: null
-        labels:
-          io.kompose.service: solrc1
-      spec:
-        containers:
-        - args:
-          - cloud
-          env:
-          - name: NODE_DIR
-            value: /opt/solr/server
-          - name: SOLR_HOST
-            value: solrc1
-          - name: ZK_HOSTS
-            value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
-          name: pod-solrc1
-          ports:
-          - containerPort: 8983
-          resources: {}
-          volumeMounts:
-          - mountPath: /opt/solr/server/cores
-            name: solrc1-claim0
-        restartPolicy: Always
-        volumes:
-        - name: solrc1-claim0
-          persistentVolumeClaim:
-            claimName: solrc1-claim0
-  status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    labels:
-      io.kompose.service: solrc2
-    name: solrc2
-  spec:
-    replicas: 1
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        creationTimestamp: null
-        labels:
-          io.kompose.service: solrc2
-      spec:
-        containers:
-        - args:
-          - cloud
-          env:
-          - name: NODE_DIR
-            value: /opt/solr/server
-          - name: SOLR_HOST
-            value: solrc2
-          - name: ZK_HOSTS
-            value: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_solr
-          name: pod-solrc2
-          ports:
-          - containerPort: 8983
-          resources: {}
-          volumeMounts:
-          - mountPath: /opt/solr/server/cores
-            name: solrc2-claim0
-        restartPolicy: Always
-        volumes:
-        - name: solrc2-claim0
-          persistentVolumeClaim:
-            claimName: solrc2-claim0
-  status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-  labels:
-      io.kompose.service: zookeeper1
-  name: zookeeper1
-  spec:
-    replicas: 1
-    strategy: {}
-    template:
-      metadata:
-        creationTimestamp: null
-        labels:
-          io.kompose.service: zookeeper1
-      spec:
-        containers:
-        - env:
-          - name: MYID
-            value: "1"
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
-          name: pod-zookeeper1
-          resources: {}
-        restartPolicy: Always
-  status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    labels:
-      io.kompose.service: zookeeper2
-    name: zookeeper2
-  spec:
-    replicas: 1
-    strategy: {}
-    template:
-      metadata:
-        creationTimestamp: null
-        labels:
-          io.kompose.service: zookeeper2
-      spec:
-        containers:
-        - env:
-          - name: MYID
-            value: "2"
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
-          name: pod-zookeeper2
-          resources: {}
-        restartPolicy: Always
-  status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    labels:
-      io.kompose.service: zookeeper3
-    name: zookeeper3
-  spec:
-    replicas: 1
-    strategy: {}
-    template:
-      metadata:
-        creationTimestamp: null
-        labels:
-          io.kompose.service: zookeeper3
-      spec:
-        containers:
-        - env:
-          - name: MYID
-            value: "3"
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_zookeeper
-          name: pod-zookeeper3
-          resources: {}
-        restartPolicy: Always
-  status: {}
+
 kind: List
 metadata: {}
