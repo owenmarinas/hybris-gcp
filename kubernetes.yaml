@@ -3,9 +3,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: hsql
@@ -23,9 +20,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-backend
@@ -45,9 +39,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-frontend
@@ -67,9 +58,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platform-admin-init
@@ -87,9 +75,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platform-background-processing
@@ -107,9 +92,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platform-hac
@@ -126,9 +108,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront1
@@ -146,9 +125,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront2
@@ -166,9 +142,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice1
@@ -186,9 +159,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice2
@@ -206,9 +176,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: solr
@@ -226,9 +193,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: solrc1
@@ -245,9 +209,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: solrc2
@@ -264,9 +225,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper1
@@ -284,9 +242,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper2
@@ -304,9 +259,6 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper3
@@ -324,9 +276,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: hsql
@@ -371,9 +320,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-backend
@@ -394,7 +340,8 @@ items:
             value: ajp://platformbackoffice1:8009
           - name: NODE_IP_platformbackoffice2
             value: ajp://platformbackoffice2:8009
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
+          command: [ "cp /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/" ]
           name: load-balancer-backend
           ports:
           - containerPort: 80
@@ -426,9 +373,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-frontend
@@ -449,7 +393,8 @@ items:
             value: ajp://platformacceleratorstorefront1:8009
           - name: NODE_IP_platformacceleratorstorefront2
             value: ajp://platformacceleratorstorefront2:8009
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
+          command: [ "sh", "-c",  "sleep 10000"]
           name: load-balancer-frontend
           ports:
           - containerPort: 80
@@ -481,9 +426,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platform-admin-init
@@ -502,7 +444,8 @@ items:
         - args:
           - admin
           - initialize
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_platform
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_platform2
+          command: [ "sh", "-c",  "sleep 10000"]
           name: platform-admin-init
           resources: {}
           volumeMounts:
@@ -550,9 +493,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platform-background-processing
@@ -618,9 +558,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platform-hac
@@ -688,9 +625,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront1
@@ -759,9 +693,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformacceleratorstorefront2
@@ -830,9 +761,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice1
@@ -901,9 +829,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: platformbackoffice2
@@ -972,9 +897,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: solr
@@ -1021,9 +943,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: solrc1
@@ -1079,9 +998,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: solrc2
@@ -1137,9 +1053,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper1
@@ -1165,9 +1078,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper2
@@ -1193,9 +1103,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper3
