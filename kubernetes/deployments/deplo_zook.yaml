@@ -5,7 +5,6 @@ items:
   metadata:
     annotations:
       kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper1
@@ -33,7 +32,6 @@ items:
   metadata:
     annotations:
       kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper2
@@ -61,7 +59,6 @@ items:
   metadata:
     annotations:
       kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: zookeeper3

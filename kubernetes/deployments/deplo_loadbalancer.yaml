@@ -3,9 +3,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-backend
@@ -26,7 +23,8 @@ items:
             value: ajp://platformbackoffice1:8009
           - name: NODE_IP_platformbackoffice2
             value: ajp://platformbackoffice2:8009
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
+          command: [ "/bin/sh", "-c", "cp -v  /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/ > /tmp/allout.txt 2>&1 ; #sleep 10000" ]
           name: load-balancer-backend
           ports:
           - containerPort: 80
@@ -44,9 +42,6 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    annotations:
-      kompose.cmd: kompose convert -f docker-compose.yaml -o kubernetes.yaml
-      kompose.version: 1.7.0 (HEAD)
     creationTimestamp: null
     labels:
       io.kompose.service: load-balancer-frontend
@@ -67,7 +62,8 @@ items:
             value: ajp://platformacceleratorstorefront1:8009
           - name: NODE_IP_platformacceleratorstorefront2
             value: ajp://platformacceleratorstorefront2:8009
-          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer
+          image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
+          command: [ "/bin/sh", "-c", "cp -v   /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/ > /tmp/allout.txt 2>&1 ; sleep 10000 " ]
           name: load-balancer-frontend
           ports:
           - containerPort: 80

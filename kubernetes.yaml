@@ -341,7 +341,7 @@ items:
           - name: NODE_IP_platformbackoffice2
             value: ajp://platformbackoffice2:8009
           image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
-          command: [ "cp /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/" ]
+          command: [ "/bin/sh", "-c", "cp   /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/"  ]
           name: load-balancer-backend
           ports:
           - containerPort: 80
