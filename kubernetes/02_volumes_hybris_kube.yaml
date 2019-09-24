@@ -5,6 +5,20 @@ items:
   metadata:
     creationTimestamp: null
     labels:
+      io.kompose.service: load-balancer-frontend-claim0
+    name: load-balancer-frontend-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
       io.kompose.service: load-balancer-backend-claim0
     name: load-balancer-backend-claim0
   spec:
