@@ -3,6 +3,34 @@ items:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: load-balancer-backend-claim0
+    name: load-balancer-backend-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    creationTimestamp: null
+    labels:
+      io.kompose.service: hsql-claim0
+    name: hsql-claim0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Mi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
     labels:
       io.kompose.service: platform-admin-init-claim0
     name: platform-admin-init-claim0
