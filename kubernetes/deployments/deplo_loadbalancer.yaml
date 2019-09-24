@@ -24,7 +24,7 @@ items:
           - name: NODE_IP_platformbackoffice2
             value: ajp://platformbackoffice2:8009
           image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
-          command: [ "/bin/sh", "-c", "cp   /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/ ; /usr/local/bin/httpd-foreground "  ]
+          command: [ "/bin/sh", "-c", " /usr/local/bin/httpd-foreground ; sleep 10000"  ]
           name: load-balancer-backend
           ports:
           - containerPort: 80
@@ -63,7 +63,7 @@ items:
           - name: NODE_IP_platformacceleratorstorefront2
             value: ajp://platformacceleratorstorefront2:8009
           image: gcr.io/gke-hybris-1/b2cacc_deployment_load_balancer2
-          command: [ "/bin/sh", "-c", "cp   /usr/local/apache2/conf/server.* /usr/local/apache2/conf/ssl/ ; /usr/local/bin/httpd-foreground "  ]
+          command: [ "/bin/sh", "-c", "/usr/local/bin/httpd-foreground ; sleep 10000 "  ]
           name: load-balancer-frontend
           ports:
           - containerPort: 80
